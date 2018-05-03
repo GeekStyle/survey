@@ -1,9 +1,9 @@
 package com.geekstyle.survey.controller.survey;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.geekstyle.survey.model.survey.Survey;
@@ -14,13 +14,11 @@ import com.geekstyle.survey.service.survey.SurveyService;
 public class SurveyController {
 	
 	@Autowired
-	SurveyService serviceService;
+	SurveyService surveyService;
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public void insertSurvey(@RequestBody Survey survey) {
-		
-		serviceService.insertSurvey(survey);
-		
+	@PostMapping
+	public Survey insertSurvey(@RequestBody Survey survey) {
+		return surveyService.insertSurvey(survey);
 	}
 	
 }

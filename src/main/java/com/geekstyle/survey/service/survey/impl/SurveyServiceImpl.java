@@ -1,12 +1,13 @@
 package com.geekstyle.survey.service.survey.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.geekstyle.survey.dao.survey.SurveyDao;
 import com.geekstyle.survey.model.survey.Survey;
 import com.geekstyle.survey.service.survey.SurveyService;
-import com.geekstyle.survey.util.UUIDUtil;
 
 @Service
 public class SurveyServiceImpl implements SurveyService{
@@ -15,8 +16,9 @@ public class SurveyServiceImpl implements SurveyService{
 	SurveyDao surveyDao;
 
 	@Override
-	public void insertSurvey(Survey survey) {
-		survey.setId(UUIDUtil.getUUID());
+	public Survey insertSurvey(Survey survey) {
+		survey.setCreateTime(new Date());
 		surveyDao.insertSurvey(survey);
+		return survey;
 	}
 }

@@ -3,13 +3,14 @@ package com.geekstyle.survey.util;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JSONUtil {
     
-    private static final Logger logger = Logger.getLogger(JSONUtil.class);
+    private static final Logger logger = LogManager.getRootLogger();
 
 	private static ObjectMapper mapper=new ObjectMapper();
 	

@@ -4,6 +4,6 @@ import com.geekstyle.survey.model.survey.Survey;
 
 public interface SurveyService {
 	
-	public void insertSurvey(Survey survey);
+	public Survey insertSurvey(Survey survey);
 	
 }

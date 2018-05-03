@@ -2,11 +2,12 @@ package com.geekstyle.survey.util;
 
 import java.security.MessageDigest;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MD5Util {
     
-    private static final Logger logger = Logger.getLogger(MD5Util.class);
+	private static final Logger logger = LogManager.getRootLogger();
 	
     public final static String MD5(String s) {
         char hexDigits[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};       

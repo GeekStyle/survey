@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.geekstyle.survey.dao.survey.SurveyDao;
 import com.geekstyle.survey.model.survey.Survey;
+import com.geekstyle.survey.service.httpclient.RestHttpClient;
 import com.geekstyle.survey.service.survey.SurveyService;
 
 @Service
@@ -14,6 +15,9 @@ public class SurveyServiceImpl implements SurveyService{
 
 	@Autowired
 	SurveyDao surveyDao;
+	
+	@Autowired
+	RestHttpClient restHttpClient;
 
 	@Override
 	public Survey insertSurvey(Survey survey) {
@@ -21,4 +25,5 @@ public class SurveyServiceImpl implements SurveyService{
 		surveyDao.insertSurvey(survey);
 		return survey;
 	}
+	
 }

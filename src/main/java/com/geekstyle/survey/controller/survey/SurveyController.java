@@ -1,6 +1,8 @@
 package com.geekstyle.survey.controller.survey;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +19,9 @@ public class SurveyController {
 	SurveyService surveyService;
 	
 	@PostMapping
-	public Survey insertSurvey(@RequestBody Survey survey) {
-		return surveyService.insertSurvey(survey);
+	public ResponseEntity<?> insertSurvey(@RequestBody Survey survey) {
+		surveyService.insertSurvey(survey);
+		return ResponseEntity.status(HttpStatus.OK).body(survey);
 	}
 	
 }

@@ -19,7 +19,7 @@ public class SurveyController {
 	SurveyService surveyService;
 	
 	@PostMapping
-	public ResponseEntity<?> insertSurvey(@RequestBody Survey survey) {
+	public ResponseEntity<?> addSurvey(@RequestBody Survey survey) {
 		surveyService.insertSurvey(survey);
 		return ResponseEntity.status(HttpStatus.OK).body(survey);
 	}

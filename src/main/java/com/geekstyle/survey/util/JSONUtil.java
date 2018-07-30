@@ -6,6 +6,9 @@ import java.io.Writer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JSONUtil {
@@ -13,6 +16,12 @@ public class JSONUtil {
     private static final Logger logger = LoggerFactory.getLogger(JSONUtil.class);
 
 	private static ObjectMapper mapper=new ObjectMapper();
+	
+	static {
+		mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	    mapper.setSerializationInclusion(Include.NON_NULL);
+	}
 	
 	public static String toJSONString(Object obj) {
 		Writer write=new StringWriter();

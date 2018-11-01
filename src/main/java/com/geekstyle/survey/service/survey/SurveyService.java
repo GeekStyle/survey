@@ -6,4 +6,6 @@ public interface SurveyService {
 	
 	public Survey insertSurvey(Survey survey);
 	
+	public Survey querySurveyById(Integer id);
+	
 }

@@ -20,8 +20,8 @@ public interface SurveyDao {
 	
 	public void updateSurvey(Survey survey);
 	
-	@Select("select id,name,create_time createTime from survey")
-	public Survey querySurvey(String id);
+	@Select("select id,name,create_time createTime from survey where id = #{id}")
+	public Survey querySurvey(Integer id);
 	
 	public List<Survey> querySurvey(Survey survey);
 	

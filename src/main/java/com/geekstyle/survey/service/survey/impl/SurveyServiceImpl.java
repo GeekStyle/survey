@@ -1,5 +1,7 @@
 package com.geekstyle.survey.service.survey.impl;
 
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,11 @@ public class SurveyServiceImpl implements SurveyService{
 		survey.setCreateTime(new Date());
 		surveyDao.insertSurvey(survey);
 		return survey;
+	}
+
+	@Override
+	public Survey querySurveyById(Integer id) {
+		return surveyDao.querySurvey(id);
 	}
 	
 }

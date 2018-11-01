@@ -7,5 +7,5 @@
 #echo "---done---"
 
 mv ./build/libs/*.jar /server/survey/survey.jar
-java -jar /server/survey/survey.jar
+nohup java -jar /server/survey/survey.jar > /server/survey/survey.log &
 echo "---done---"

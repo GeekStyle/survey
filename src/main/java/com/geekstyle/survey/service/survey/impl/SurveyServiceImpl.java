@@ -28,7 +28,7 @@ public class SurveyServiceImpl implements SurveyService{
 
 	@Override
 	public Survey querySurveyById(Integer id) {
-		return surveyDao.querySurvey(id);
+		return surveyDao.querySurveyById(id);
 	}
 	
 }

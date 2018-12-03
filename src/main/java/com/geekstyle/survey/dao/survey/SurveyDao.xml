@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.geekstyle.survey.dao.survey.SurveyDao">
+
+	<select id="querySurveyById" parameterType="int" resultType="Survey">
+		select
+			*
+		from
+			survey
+		where 
+			id = #{id}
+	</select>
+	
+	<insert id="insertSurvey" parameterType="Survey" useGeneratedKeys="true">
+		insert into survey
+			(
+				id,
+				name,
+				create_time
+			)
+			values
+			(
+				#{id},
+				#{name},
+				#{createTime}
+			)
+	</insert>
+	
+</mapper>

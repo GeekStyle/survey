@@ -1,7 +1,5 @@
 package com.geekstyle.survey.service.httpclient.impl;
 
-import java.util.HashMap;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

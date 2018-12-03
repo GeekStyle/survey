@@ -19,7 +19,7 @@
 			survey
 	</select>
 	
-	<insert id="insertSurvey" parameterType="Survey" useGeneratedKeys="true">
+	<insert id="insertSurvey" parameterType="Survey" keyProperty="id" useGeneratedKeys="true">
 		insert into survey
 			(
 				id,

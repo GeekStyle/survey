@@ -29,6 +29,8 @@ public class SurveyControllerTest {
     public void testInsertSurvey() throws Exception {
         Survey survey = new Survey();
         survey.setName("John");
-        assertThat(restTemplate.postForEntity("http://localhost:" + port + "/survey", survey, HashMap.class).toString()).contains("John");
+        String result = restTemplate.postForEntity("http://localhost:" + port + "/survey", survey, HashMap.class).toString();
+        System.out.println(result);
+        assertThat(result).contains("John");
     }
 }

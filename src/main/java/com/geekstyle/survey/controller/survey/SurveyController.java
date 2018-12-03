@@ -1,5 +1,7 @@
 package com.geekstyle.survey.controller.survey;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,12 @@ public class SurveyController {
 	public ResponseEntity<?> querySurveyById(@PathVariable Integer id) {
 		Survey survey = surveyService.querySurveyById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(survey);
+	}
+	
+	@GetMapping
+	public ResponseEntity<?> querySurvey() {
+		List<Survey> surveyList = surveyService.querySurvey();
+		return ResponseEntity.status(HttpStatus.OK).body(surveyList);
 	}
 	
 		

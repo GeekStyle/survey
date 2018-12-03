@@ -12,6 +12,13 @@
 			id = #{id}
 	</select>
 	
+	<select id="querySurvey" resultType="Survey">
+		select
+			*
+		from
+			survey
+	</select>
+	
 	<insert id="insertSurvey" parameterType="Survey" useGeneratedKeys="true">
 		insert into survey
 			(

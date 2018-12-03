@@ -1,6 +1,7 @@
 package com.geekstyle.survey.service.survey.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,11 @@ public class SurveyServiceImpl implements SurveyService{
 	@Override
 	public Survey querySurveyById(Integer id) {
 		return surveyDao.querySurveyById(id);
+	}
+
+	@Override
+	public List<Survey> querySurvey() {
+		return surveyDao.querySurvey();
 	}
 	
 }

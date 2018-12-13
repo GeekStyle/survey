@@ -2,6 +2,8 @@ package com.geekstyle.survey.controller.survey;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +26,9 @@ public class SurveyController {
 	@Autowired
 	SurveyService surveyService;
 	
+	
 	@PostMapping
-	public ResponseEntity<?> insertSurvey(@RequestBody Survey survey) {
+	public ResponseEntity<?> insertSurvey(@Valid @RequestBody Survey survey) {
 		surveyService.insertSurvey(survey);
 		return ResponseEntity.status(HttpStatus.OK).body(survey);
 	}

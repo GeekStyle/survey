@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.geekstyle.survey.dao.user.VerifyCodeDao">
+
+	<insert id="insertVerifyCode" parameterType="VerifyCode" >
+		insert into t_verify_code
+			(
+				code,
+				username,
+				create_time
+			)
+		values
+			(
+				#{code},
+				#{username},
+				#{createTime}
+			)
+	</insert>
+	
+	<select id="getVerifyCode" parameterType="VerifyCode" resultType="VerifyCode" >
+		select
+			code,
+			username,
+			create_time createTime
+		from
+			t_verify_code
+		where
+			code = #{code}
+			and username = #{username}
+	</select>
+	
+</mapper>

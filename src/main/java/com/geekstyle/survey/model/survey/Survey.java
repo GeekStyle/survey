@@ -2,9 +2,15 @@ package com.geekstyle.survey.model.survey;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class Survey {
 	
 	private Long id;
+	@NotNull
 	private String name;
 	private Date createTime;
 	

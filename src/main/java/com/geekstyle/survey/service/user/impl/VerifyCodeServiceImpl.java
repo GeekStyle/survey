@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.geekstyle.survey.dao.user.VerifyCodeDao;
-import com.geekstyle.survey.model.user.Credential;
 import com.geekstyle.survey.model.user.VerifyCode;
-import com.geekstyle.survey.service.common.ResponseService;
 import com.geekstyle.survey.service.user.CredentialService;
 import com.geekstyle.survey.service.user.VerifyCodeService;
 import com.geekstyle.survey.util.MailUtil;
@@ -23,19 +21,14 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
 	VerifyCodeDao verifyCodeDao;
 
 	@Override
-	public String sendVerifyCode(Credential credential) {
-		if(credentialService.isExist(credential)) {
-			String code = generateVerifyCode();
-			VerifyCode verifyCode = new VerifyCode();
-			verifyCode.setCode(code);
-			verifyCode.setUsername(credential.getUsername());
-			verifyCode.setCreateTime(new Date());
-			verifyCodeDao.insertVerifyCode(verifyCode);
-			MailUtil.sendRestPasswordEmail(code, credential.getUsername());
-			return ResponseService.SUCCESS;
-		}else {
-			return ResponseService.NOT_EXIST;
-		}
+	public void sendVerifyCode(String username) {
+		String code = generateVerifyCode();
+		VerifyCode verifyCode = new VerifyCode();
+		verifyCode.setCode(code);
+		verifyCode.setUsername(username);
+		verifyCode.setCreateTime(new Date());
+		verifyCodeDao.insertVerifyCode(verifyCode);
+		MailUtil.sendRestPasswordEmail(code, username);
 	}
 	
 	private String generateVerifyCode() {

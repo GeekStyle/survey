@@ -4,7 +4,7 @@
 <mapper namespace="com.geekstyle.survey.dao.user.VerifyCodeDao">
 
 	<insert id="insertVerifyCode" parameterType="VerifyCode" >
-		insert into t_verify_code
+		insert into verify_code
 			(
 				code,
 				username,
@@ -24,7 +24,7 @@
 			username,
 			create_time createTime
 		from
-			t_verify_code
+			verify_code
 		where
 			code = #{code}
 			and username = #{username}

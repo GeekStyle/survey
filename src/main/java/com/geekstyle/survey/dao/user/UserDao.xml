@@ -4,7 +4,7 @@
 <mapper namespace="com.geekstyle.survey.dao.user.UserDao">
 
 	<insert id="insertUser" parameterType="User" keyProperty="id" useGeneratedKeys="true">
-		insert into t_user
+		insert into user
 			(
 			nickname,
 			email,
@@ -31,7 +31,7 @@
 			id,
 			nickname
 		from
-			t_user
+			user
 		where 
 			id = #{id}
 	</select>

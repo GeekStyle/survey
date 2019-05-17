@@ -1,7 +1,6 @@
 package com.geekstyle.survey.service.user.impl;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,12 @@ import org.springframework.stereotype.Service;
 import com.geekstyle.survey.dao.user.CredentialDao;
 import com.geekstyle.survey.model.user.Credential;
 import com.geekstyle.survey.model.user.VerifyCode;
-import com.geekstyle.survey.service.common.ResponseService;
+import com.geekstyle.survey.service.common.Constant;
 import com.geekstyle.survey.service.user.CredentialService;
 import com.geekstyle.survey.service.user.VerifyCodeService;
 
 @Service
-public class CredentialServiceImpl implements CredentialService{
+public class CredentialServiceImpl implements CredentialService, Constant{
 	
 	@Autowired
 	CredentialDao credentialDao;
@@ -23,18 +22,8 @@ public class CredentialServiceImpl implements CredentialService{
 	VerifyCodeService verifyCodeService;
 	
 	@Override
-	public Map<String,String> checkCredential(Credential credential) {
-		Credential credentialInDB = credentialDao.getCredentialByUserName(credential.getUsername());
-		Map<String,String> credentialCheckResult = new HashMap<String,String>();
-		if(credentialInDB == null) {
-			credentialCheckResult.put("credentialResult", CREDENTIAL_USERNAME_NOT_EXIST);
-		}else if(!credentialInDB.getPassword().equals(credential.getPassword())){
-			credentialCheckResult.put("credentialResult", CREDENTIAL_PASSWORD_NOT_MATCH);
-		}else {
-			credentialCheckResult.put("credentialResult", CREDENTIAL_CORRECT);
-			credentialCheckResult.put("userId", credentialInDB.getUserId().toString());
-		}
-		return credentialCheckResult;
+	public Credential getCredential(String username) {
+		return credentialDao.getCredentialByUserName(username);
 	}
 
 	@Override
@@ -58,19 +47,19 @@ public class CredentialServiceImpl implements CredentialService{
 		verifyCodeQueryParam.setUsername(map.get("username"));
 		VerifyCode verifyCode = verifyCodeService.getVerifyCode(verifyCodeQueryParam);
 		if(verifyCode == null) {
-			return ResponseService.NOT_EXIST;
+			return NOT_EXIST;
 		}
 		long isertTimeInMilliseconds = verifyCode.getCreateTime().getTime();
 		long nowTimeInMilliSeconds = new Date().getTime();
 		if(nowTimeInMilliSeconds - isertTimeInMilliseconds > 600000) {
-			return ResponseService.EXPIRED;
+			return EXPIRED;
 		}
 		Integer userId = credentialDao.getUserId(map.get("username"));
 		Credential credential = new Credential();
 		credential.setUserId(userId);
 		credential.setPassword(map.get("newPassword"));
 		credentialDao.updatePassword(credential);
-		return ResponseService.SUCCESS;
+		return SUCCESS;
 	}
 
 }

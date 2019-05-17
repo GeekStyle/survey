@@ -16,7 +16,7 @@ public interface CredentialService {
 	
 	public void insertCredential(Credential credential);
 	
-	public Map<String,String> checkCredential(Credential credential);
+	public Credential getCredential(String username);
 	
 	public boolean isExist(Credential credential);
 	

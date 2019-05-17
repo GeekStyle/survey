@@ -3,20 +3,22 @@ package com.geekstyle.survey.controller.user;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.geekstyle.survey.model.common.Response;
 import com.geekstyle.survey.model.user.Credential;
+import com.geekstyle.survey.model.user.User;
+import com.geekstyle.survey.service.common.Constant;
 import com.geekstyle.survey.service.user.CredentialService;
 import com.geekstyle.survey.service.user.UserService;
 
-@Controller
+@RestController
 @RequestMapping("/credential")
-public class CredentialController {
+public class CredentialController implements Constant{
 	
 	@Autowired
 	CredentialService credentialService;
@@ -24,64 +26,53 @@ public class CredentialController {
 	UserService userService;
 	
 	
-	@RequestMapping(value="/check",method=RequestMethod.POST,headers={"Accept=application/json"})
-	public @ResponseBody Response login(@RequestBody Credential credential) {
-		Response response = new Response();
+	@RequestMapping(value="/login",method=RequestMethod.POST,headers={"Accept=application/json"})
+	public ResponseEntity<?> login(@RequestBody Credential credential) {
 		//TODO
 		//user input backend validation
 		
 		try{
-			Map<String,String> credentialCheckResult = credentialService.checkCredential(credential);
-			response.setCode(credentialCheckResult.get("credentialResult"));
-			if(credentialCheckResult.get("credentialResult").equals(CredentialService.CREDENTIAL_CORRECT)) {
-				Integer userId = Integer.parseInt(credentialCheckResult.get("userId"));
-				response.setData(userService.getUserById(userId));
+			Credential credentialInDB = credentialService.getCredential(credential.getUsername());
+			if(credentialInDB == null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(NOT_EXIST);
+			}else if(!credentialInDB.getPassword().equals(credential.getPassword())){
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(WRONG_PASSWORD);
+			}else {
+				User user = userService.getUserById(credentialInDB.getUserId());
+				return ResponseEntity.status(HttpStatus.OK).body(user);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
-		return response;
 	}
 	
 	@RequestMapping(value="/isDuplicated",method=RequestMethod.POST,headers={"Accept=application/json"})
-	public @ResponseBody Response isDuplicated(@RequestBody Credential credential) {
-		Response response = new Response();
+	public ResponseEntity<?> isDuplicated(@RequestBody Credential credential) {
 		//TODO
 		//user input backend validation
 		
 		try{
 			boolean isDuplicated = credentialService.isExist(credential);
-			response.setCode(String.valueOf(isDuplicated));
+			return ResponseEntity.status(HttpStatus.OK).body(isDuplicated);
 		}catch(Exception e) {
 			e.printStackTrace();
-			//TOTO
-			//exception handle
-			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
-		
-		//封装
-		response.setData(null);
-		return response;
 	}
 	
 	@RequestMapping(value="/resetPassword",method=RequestMethod.POST,headers={"Accept=application/json"})
-	public @ResponseBody Response resetPassword(@RequestBody Map<String,String> map) {
-		Response response = new Response();
+	public ResponseEntity<?> resetPassword(@RequestBody Map<String,String> map) {
 		//TODO
 		//user input backend validation
 		
 		try{
-			response.setCode(credentialService.resetPassword(map));
+			String result = credentialService.resetPassword(map);
+			return ResponseEntity.status(HttpStatus.OK).body(result);
 		}catch(Exception e) {
 			e.printStackTrace();
-			//TOTO
-			//exception handle
-			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());			
 		}
-		
-		//封装
-		response.setData(null);
-		return response;
 	}
 	
 }

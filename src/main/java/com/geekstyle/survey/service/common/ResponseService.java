@@ -6,6 +6,8 @@ public interface ResponseService {
 	
 	public static final String SERVER_ERROR = "500";
 	
+	public static final String CLIENT_ERROR = "400";
+	
 	public static final String SUCCESS = "SUCCESS";
 	
 	public static final String NOT_EXIST = "NOT_EXIST";

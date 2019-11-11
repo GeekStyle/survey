@@ -21,3 +21,5 @@ using Mybatis to batch insert into MySQL
 if validation failed, will return 400
 if encounter server exception( for example, IOException ), then return 500 http code with an error message
 if the data is valid, then return the 200 httpcode with how many data inserted and how many duplicates.
+
+test
